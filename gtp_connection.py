@@ -88,7 +88,28 @@ class GtpConnection():
         line = sys.stdin.readline()
         while line:
             self.get_cmd(line)
+            # game_over, color = self.isGameOver()
+            # if game_over:
+            #     score = self.board.get_winner(self.komi)
+            #     self.respond("Game over. " + color + " is the winner." )
+
             line = sys.stdin.readline()
+
+    def isGameOver(self, color):
+        """
+        determines whether there is another viable move for NoGo, or if game is over
+        :return true if game is over for the given color, false if there is viable moves:
+        """
+        if color not in ["b", "w"]:
+            return False
+
+        opponentNum = GoBoardUtil.opponent(GoBoardUtil.color_to_int(color))
+        # check for if the game is over for black
+        if len(GoBoardUtil.generate_legal_moves(self.board, opponentNum).replace(" ", "")) == 0:
+            return True
+        return False
+
+
 
     def get_cmd(self, command):
         """
@@ -116,10 +137,15 @@ class GtpConnection():
         if command_name in self.commands:
             try:
                 self.commands[command_name](args)
+                if command_name == "play":
+                    game_over = self.isGameOver(args[0])
+                    if game_over:
+                        self.respond("Game Over, " + args[0] + " WINS")
             except Exception as e:
                 self.debug_msg("Error executing command {}\n".format(str(e)))
                 self.debug_msg("Stack Trace:\n{}\n".format(traceback.format_exc()))
                 raise e
+
         else:
             self.debug_msg("Unknown command: {}\n".format(command_name))
             self.error('Unknown command')
@@ -293,7 +319,8 @@ class GtpConnection():
             color= GoBoardUtil.color_to_int(board_color)
             if args[1].lower()=='pass':
                 self.debug_msg("Player {} is passing\n".format(args[0]))
-                self.respond()
+                self.respond("Illegal Move: {} {}".format(board_color, board_move))
+                # self.respond()
                 return
             move = GoBoardUtil.move_to_coord(args[1], self.board.size)
             if move:
@@ -334,6 +361,7 @@ class GtpConnection():
             move = self.go_engine.get_move(self.board, color)
             if move is None:
                 self.respond("pass")
+                # raise RuntimeError("Illegal move given by engine")
                 return
 
             if not self.board.check_legal(move, color):
