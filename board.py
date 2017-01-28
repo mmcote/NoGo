@@ -411,7 +411,7 @@ class GoBoard(object):
 
         if self.board[point] != EMPTY:
             c=self._point_to_coord(point)
-            msg = "Row and Column: %d %d is already filled with a %s stone"%(c[0],c[1],GoBoardUtil.int_to_color(color))
+            msg = "{} {} occupied".format(GoBoardUtil.int_to_color(color), GoBoardUtil.format_point(c))
             return False,msg
         if point == self.ko_constraint:
             msg ="KO move is not permitted!"

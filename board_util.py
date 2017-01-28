@@ -159,7 +159,7 @@ class GoBoardUtil(object):
         except (IndexError, ValueError):
             raise ValueError("invalid point: '%s'" % s)
         if not (col <= board_size and row <= board_size):
-            raise ValueError("point is off board: '%s'" % s)
+            raise ValueError("Wrong Coordinates")
         return row, col
     
     @staticmethod
@@ -177,7 +177,7 @@ class GoBoardUtil(object):
         try:
            return color_to_int[c] 
         except:
-            raise ValueError("Valid color characters are: b, w, e, BORDER and FLOODFILL. please provide the input in this format ")
+            raise ValueError("Color Error")
     
     @staticmethod
     def int_to_color(i):
