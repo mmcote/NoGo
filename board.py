@@ -457,7 +457,7 @@ class GoBoard(object):
             # if cap_inds != None:
             #     self.board[cap_inds] = GoBoardUtil.opponent(color)
             c = self._point_to_coord(point)
-            msg = "{} {} capture".format(color, point)
+            msg = "{} {} capture".format(GoBoardUtil.int_to_color(color), GoBoardUtil.format_point(c))
             return False, msg
         elif self._liberty_flood(fboard) and self.suicide:
             #non suicidal move
@@ -470,7 +470,7 @@ class GoBoard(object):
             # if cap_inds!= None:
             #     self.board[cap_inds]=GoBoardUtil.opponent(color)
             c=self._point_to_coord(point)
-            msg = "{} {} suicide".format(c[0],c[1])
+            msg = "{} {} suicide".format(GoBoardUtil.int_to_color(color), GoBoardUtil.format_point(c))
             return False, msg
 
 
