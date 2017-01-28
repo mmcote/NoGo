@@ -28,10 +28,10 @@ class GoBoard(object):
         """
         move_inspection, msg =self._play_move(point,color)
         if not move_inspection:
-            return False
+            return False, msg
         else:
             self.last_played_color = color
-            return True
+            return True, ""
 
     @staticmethod
     def showboard(board,bd_size):
@@ -457,7 +457,7 @@ class GoBoard(object):
             # if cap_inds != None:
             #     self.board[cap_inds] = GoBoardUtil.opponent(color)
             c = self._point_to_coord(point)
-            msg = "Capturing move with color %s in the row and column: %d %d is illegal in NoGo " % (color, c[0], c[1])
+            msg = "{} {} capture".format(color, point)
             return False, msg
         elif self._liberty_flood(fboard) and self.suicide:
             #non suicidal move
@@ -470,7 +470,7 @@ class GoBoard(object):
             # if cap_inds!= None:
             #     self.board[cap_inds]=GoBoardUtil.opponent(color)
             c=self._point_to_coord(point)
-            msg = "Suicide move with color %s in the row and column: %d %d "%(color, c[0],c[1])
+            msg = "{} {} suicide".format(c[0],c[1])
             return False, msg
 
 
