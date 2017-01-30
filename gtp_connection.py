@@ -140,10 +140,12 @@ class GtpConnection():
         if command_name in self.commands:
             try:
                 self.commands[command_name](args)
-                if command_name == "play":
-                    game_over = self.isGameOver(args[0])
-                    if game_over:
-                        self.respond("Game Over, " + args[0] + " WINS")
+                # if command_name == "play":
+                #     game_over = self.isGameOver(args[0])
+                #     if game_over:
+                #         # self.respond("Game Over, " + args[0] + " WINS")
+                #         # Reset the board when the game is over
+                #         self.reset(self.board.size)
             except Exception as e:
                 self.debug_msg("Error executing command {}\n".format(str(e)))
                 self.debug_msg("Stack Trace:\n{}\n".format(traceback.format_exc()))
