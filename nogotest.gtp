@@ -1,0 +1,224 @@
+#personal tests
+#
+#Avery Tan, Justin Barclay, Michael Cote
+#
+#
+
+
+#test 1 : ensure single capturing is illegal
+
+# board prior to test play final move
+# [[0 0 2 0 0 0 0]
+#  [0 2 1 2 0 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]]
+
+boardsize 7
+play b c2
+play w c1
+play w b2
+play w d2
+10 play w c3
+#? [Illegal Move: c3]
+
+
+
+
+#test 2 : ensure block capture is illegal
+
+# board prior to test play final move
+# [[0 0 0 0 0 0 0]
+#  [0 0 0 0 1 1 0]
+#  [0 0 0 1 2 2 0]
+#  [0 0 1 2 2 1 0]
+#  [0 0 0 1 1 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]]
+
+boardsize 7
+play w d4
+play b c4
+play w e4
+play b d5
+play w e3
+play b d3
+play w f3
+play b e2
+play b e5
+play b f2
+play b f4
+20 play b g3
+#? [Illegal Move: g3]
+
+
+
+
+#test 3 : ensure suicide is illegal
+
+# board prior to test play final move
+# [[1 1 2 0 0 0 0]
+#  [1 0 2 0 0 0 0]
+#  [2 1 2 0 0 0 0]
+#  [0 2 2 0 0 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]]
+
+boardsize 7
+play b a1
+play b a2
+play b b1
+play b b3
+play w c1
+play w c2
+play w c3
+play w c4
+play w b4
+play w a3
+30 play b b2
+#? [Illegal Move: b2]
+
+
+
+
+
+#test 4 : ensure suicide by eye is illegal
+
+# [[0 0 0 1 0 0 0]
+#  [0 0 1 2 1 0 0]
+#  [0 1 2 0 2 1 0]
+#  [0 0 1 2 1 0 0]
+#  [0 0 0 1 0 0 0]
+#  [0 0 0 0 0 0 0]
+#  [0 0 0 0 0 0 0]]
+
+boardsize 7
+play w d2
+play w d4
+play w c3
+play w e3
+play b d1
+play b c2
+play b e2
+play b f3
+play b e4
+play b d5
+play b c4
+play b b3
+40 play w d3
+#? [Illegal Move: d3]
+
+
+
+
+
+#test 5 : ensure passing is illegal
+
+# [[2 0 0 0]
+#  [0 1 0 0]
+#  [0 0 0 0]
+#  [0 0 0 0]]
+
+boardsize 4
+play w a1
+play b b2
+50 play w pass
+#? [Illegal Move: pass]
+
+
+
+
+
+
+#test 6 : ensure move legality in a board of size 5 where there are suicide points and captures. Hence d5 should not be a playable legal point for b.
+
+# [[2 0 0 0 0]
+#  [2 2 0 1 0]
+#  [2 0 0 1 1]
+#  [2 1 1 2 1]
+#  [2 0 1 0 0]]
+
+boardsize 5
+play w a1
+play b b4
+play w d4
+play b d2
+play b d3
+play b e3
+play b c4
+play b c5
+play w b2
+play w a2
+play w a3
+play w a4
+play w a5
+play b e4
+60 legal_moves b
+#? [b1 b3 b5 c1 c2 c3 d1 e1 e2 e5]
+
+
+
+
+
+#test 7: check legality for w in the scenario of test 6. All moves should be legal for w
+70 legal_moves w
+#? [b1 b3 b5 c1 c2 c3 d1 d5 e1 e2 e5]
+
+
+
+
+
+
+#test 8: ensure border capture is illegal
+
+# [[1 1 2 0]
+#  [1 1 2 0]
+#  [1 2 0 0]
+#  [0 0 0 0]]
+
+boardsize 4
+play b a1
+play b a2
+play b b1
+play b a3
+play b b2
+play w c1
+play w c2
+play w b3
+80 play w a4
+#? [Illegal Move: a4]
+
+
+
+
+
+#test 9: ensure that point a4 is illegal for w under legal_moves.
+90 legal_moves w
+#? [b4 c3 c4 d1 d2 d3 d4]
+
+
+
+
+
+
+#test 10: ensure border suicide is not permissible
+
+# [[0 1 2 0]
+#  [1 1 2 0]
+#  [1 2 0 0]
+#  [2 0 0 0]]
+
+boardsize 4
+play b a2
+play b b1
+play b a3
+play b b2
+play w c1
+play w c2
+play w b3
+play w a4
+100 play b a1
+#? [Illegal Move: a1]
