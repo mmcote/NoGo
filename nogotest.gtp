@@ -22,7 +22,7 @@ play w c1
 play w b2
 play w d2
 10 play w c3
-#? [illegal Move: w c3 capture]
+#? [illegal move: w c3 capture]
 
 
 
@@ -51,7 +51,7 @@ play b e5
 play b f2
 play b f4
 20 play b g3
-#? [illegal Move: b g3 capture]
+#? [illegal move: b g3 capture]
 
 
 
@@ -79,7 +79,7 @@ play w c4
 play w b4
 play w a3
 30 play b b2
-#? [illegal Move: b b2 suicide]
+#? [illegal move: b b2 suicide]
 
 
 
@@ -109,7 +109,7 @@ play b d5
 play b c4
 play b b3
 40 play w d3
-#? [illegal Move: w d3 suicide]
+#? [illegal move: w d3 suicide]
 
 
 
@@ -126,7 +126,7 @@ boardsize 4
 play w a1
 play b b2
 50 play w pass
-#? [illegal Move: w pass]
+#? [illegal move: w pass]
 
 
 
@@ -172,32 +172,21 @@ play b e4
 
 
 
-#test 8: ensure border capture is illegal
-
-# [[1 1 2 0]
-#  [1 1 2 0]
-#  [1 2 0 0]
-#  [0 0 0 0]]
-
-boardsize 4
-play b a1
-play b a2
-play b b1
-play b a3
-play b b2
-play w c1
-play w c2
-play w b3
-80 play w a4
-#? [illegal Move: w a4 capture]
+#test 8: test to ensure you cannot place a stone on the occupied square
+boardsize 7
+play w a1
+80 play b a1
+#? [illegal move: b a1 occupied]
 
 
 
 
 
-#test 9: ensure that point a4 is illegal for w under legal_moves.
-90 legal_moves w
-#? [b4 c3 c4 d1 d2 d3 d4]
+#test 9: test for wrong coordinates
+boardsize 7
+90 play b a100
+#? [illegal move: b a100 wrong coordinate]
+
 
 
 
@@ -221,4 +210,6 @@ play w c2
 play w b3
 play w a4
 100 play b a1
-#? [illegal Move: b a1 suicide]
+#? [illegal move: b a1 suicide]
+
+

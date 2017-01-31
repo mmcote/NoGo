@@ -283,7 +283,7 @@ class GtpConnection():
             move = GoBoardUtil.move_to_coord(point, self.board.size)
             point = self.board._coord_to_point(*move)
             if not self.board.move(point, BLACK):
-                self.debug_msg("illegal Move: {}\nBoard:\n{}\n".format(move, str(self.board.get_twoD_board())))
+                self.debug_msg("illegal move: {}\nBoard:\n{}\n".format(move, str(self.board.get_twoD_board())))
         self.respond()
 
     def legal_moves_cmd(self, args):
@@ -326,7 +326,7 @@ class GtpConnection():
             if args[1].lower()=='pass':
                 self.debug_msg("Player {} is passing\n".format(args[0]))
 
-                self.respond("illegal Move: {} {}".format(board_color, board_move))
+                self.respond("illegal move: {} {}".format(board_color, board_move))
                 return
             move = GoBoardUtil.move_to_coord(args[1], self.board.size)
             if move:
@@ -338,7 +338,7 @@ class GtpConnection():
 
             validMove, errMsg = self.board.move(move, color)
             if not validMove:
-                self.respond("illegal Move: {}".format(errMsg))
+                self.respond("illegal move: {}".format(errMsg))
                 return
             else:
                 self.debug_msg("Move: {}\nBoard:\n{}\n".format(board_move, str(self.board.get_twoD_board())))
