@@ -126,7 +126,7 @@ boardsize 4
 play w a1
 play b b2
 50 play w pass
-#? [illegal move: w pass]
+#? [illegal move: w pass wrong coordinate]
 
 
 

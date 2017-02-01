@@ -326,7 +326,7 @@ class GtpConnection():
             if args[1].lower()=='pass':
                 self.debug_msg("Player {} is passing\n".format(args[0]))
 
-                self.respond("illegal move: {} {}".format(board_color, board_move))
+                self.respond("illegal move: {} {} wrong coordinate".format(board_color, board_move))
                 return
             move = GoBoardUtil.move_to_coord(args[1], self.board.size)
             if move:
